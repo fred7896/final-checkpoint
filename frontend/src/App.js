@@ -4,6 +4,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import Tour from "./pages/Tour";
+import Booking from "./pages/Booking";
 
 class App extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Route exact path="/" component={Home} />
         <Route path="/tournee" component={Tour} />
-        {/* <Route path="/reserver" component={Booking} /> */}
+        <Route path="/reserver" component={Booking} />
       </BrowserRouter>
     );
   }

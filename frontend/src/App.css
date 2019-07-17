@@ -16,7 +16,7 @@ body {
   background-color: #feac01;
 }
 
-h1 {
+h1, h3 {
   font-family: 'KyrillaSansSerif-Black';
   color:#520a0a;
 }
@@ -43,7 +43,7 @@ li {
   list-style: none;
 }
 
-li:hover {
+.container-navbar-list li:hover {
   border: 1px solid #520a0a;
   border-radius: 1rem;
 }
@@ -73,4 +73,52 @@ li:hover {
 
 .img-family {
   width: 100%;
+}
+
+.container-shows-list {
+  width: 85vw;
+  background-color: #520a0a;
+  color: #feac01;
+  font-family: 'KyrillaSansSerif-Bold';
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  font-size:1.3em;
+}
+
+.price-list {
+  width: 100%;
+  font-family: 'KyrillaSansSerif-Bold';
+  
+}
+
+.container-price-list {
+  width: 45vw;
+  color: #520a0a;
+}
+
+.img-pricing {
+  width: 80%;
+}
+
+.container-map {
+  width: 55vw;
+}
+
+.button-plus {
+  font-size : 2em;
+  font-family: 'KyrillaSansSerif-Black';
+  line-height: 0.7;
+}
+
+.booking-container {
+  padding:2em;
+  background-color: #FF9500;
+}
+
+form {
+  font-family: 'KyrillaSansSerif-Bold';
+  color :#520a0a;
 }
