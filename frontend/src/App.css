@@ -55,3 +55,22 @@ li:hover {
   flex-direction: row;
   flex-wrap: wrap;
 }
+.container-img {
+  width: 60vw;
+}
+
+.container-history-text {
+  width: 40vw;
+  background-color: #520a0a;
+  color: #feac01;
+  font-family: 'KyrillaSansSerif-Bold';
+  align-items: center;
+}
+
+.container-history-text p {
+  font-size:.8em;
+}
+
+.img-family {
+  width: 100%;
+}
