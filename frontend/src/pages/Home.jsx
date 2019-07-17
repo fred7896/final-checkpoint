@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 class Home extends React.Component {
   render() {
     return (
-      <div className="container-fluid home ">
+      <div className="container-fluid">
         <Navbar />
         <div className="p-3 d-flex">
           <div className="container-img">

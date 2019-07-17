@@ -3,11 +3,11 @@
 
 Le but du projet est de concevoir le site d'un cirque avec possibilité de générer une invitation.
 
-- En tant qu'utilisateur, je souhaite connaître l'histoire du cirque.
-- En tant qu'utilisateur, je souhaite obtenir des informations sur les infrastrctures du cirque.
-- En tant qu'utilisateur, je souhaite obtenir des informations sur les dates et lieux des shows.
-- En tant qu'utilisateur, je souhaite connaître le prix des places.
-- En tant qu'utilisateur, je souhaite reserver une place nominative.
+[x] En tant qu'utilisateur, je souhaite connaître l'histoire du cirque.
+[x] En tant qu'utilisateur, je souhaite obtenir des informations sur les infrastrctures du cirque.
+[ ] En tant qu'utilisateur, je souhaite obtenir des informations sur les dates et lieux des shows.
+[ ] En tant qu'utilisateur, je souhaite connaître le prix des places.
+[ ] En tant qu'utilisateur, je souhaite reserver une place nominative.
 
 ## WIREFRAME
 
