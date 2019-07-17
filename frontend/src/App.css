@@ -3,13 +3,55 @@
 }
 
 @font-face {
-  font-family: 'BeTrueToYourSchool';
+  font-family: 'KyrillaSansSerif-Bold';
   src:url('./KyrillaSansSerif-Bold.ttf');
 }
 
 @font-face {
-  font-family: 'BeTrueToYourSchool';
+  font-family: 'KyrillaSansSerif-Black';
   src:url('./KyrillaSansSerif-Black.ttf');
 }
 
+body {
+  background-color: #feac01;
+}
 
+h1 {
+  font-family: 'KyrillaSansSerif-Black';
+  color:#520a0a;
+}
+
+.kyril-bold {
+  font-family: 'KyrillaSansSerif-Bold';
+  color:#520a0a;
+}
+
+.container-navbar {
+  width: 100vw;
+  height: 20vh;
+}
+
+.container-navbar-title {
+  width: 45%;
+}
+
+.container-navbar-list {
+ width: 55%;
+}
+
+li {
+  list-style: none;
+}
+
+li:hover {
+  border: 1px solid #520a0a;
+  border-radius: 1rem;
+}
+
+.container-navbar-list ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
