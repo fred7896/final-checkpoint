@@ -13,6 +13,11 @@ Le but du projet est de concevoir le site d'un cirque avec possibilité de gén�
 
 https://pr.to/72V5GQ/
 
+## PALETTE
+
+feac01
+520a0a
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
