@@ -66,41 +66,17 @@ app.get("/api/shows/:city", (req, res) => {
   );
 });
 
-app.get("/api/booking", (req, res) => {
-  db.query(
-    `select id from booking where id >= LAST_INSERT_ID()`,
-    (err, results) => {
-      if (err) {
-        res.status(500).send("Erreur lors de récupération de l'id");
-      } else {
-        res.json(results);
-      }
-    }
-  );
-});
-
-app.post("/api/ticket", (req, res) => {
-  const formData = req.body;
-  db.query("INSERT INTO ticket SET ?", formData, (err, results) => {
+//LISTE DES PRODUITS
+app.get("/api/products/list", (req, res) => {
+  db.query(`SELECT p.product_name FROM product AS p`, (err, results) => {
     if (err) {
-      res.status(500).send("Erreur lors de récupération de l'id");
+      res
+        .status(500)
+        .send("Erreur lors de récupération de la liste des produits");
     } else {
       res.json(results);
     }
   });
-});
-
-app.get("/api/tickets", (req, res) => {
-  db.query(
-    "SELECT t.name, t.category, s.show_name FROM ticket as t JOIN circus_show as s WHERE t.booking_id >= LAST_INSERT_ID() ",
-    (err, results) => {
-      if (err) {
-        res.status(500).send("Erreur lors de récupération de l'id");
-      } else {
-        res.json(results);
-      }
-    }
-  );
 });
 
 app.listen(PORT, () => {

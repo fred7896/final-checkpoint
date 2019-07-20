@@ -10,11 +10,10 @@ class Booking extends React.Component {
       name: "",
       city: "",
       shows: [],
+      products : [],
       cat: "",
       date: "",
       bookingNumber: "",
-      ticket: [],
-      count: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitCity = this.handleSubmitCity.bind(this);
@@ -26,29 +25,10 @@ class Booking extends React.Component {
         cities: res.data
       });
     });
-
-    if (this.state.count > 0) {
-      axios.get(`http://localhost:5000/api/tickets`).then(res => {
-        this.setState({
-          ticket: res.data
-        });
-      });
-    }
   }
 
   handleSubmitCity(event) {
     event.preventDefault();
-    axios.get("http://localhost:5000/api/booking").then(res => {
-      if (res.data.id) {
-        this.setState({
-          bookingNumber: res.data.id
-        });
-      } else {
-        this.setState({
-          bookingNumber: 1
-        });
-      }
-    });
     axios
       .get(`http://localhost:5000/api/shows/${this.state.city}`)
       .then(res => {
@@ -59,20 +39,13 @@ class Booking extends React.Component {
   }
 
   handleSubmitTicket(event) {
-    let count = 1;
     event.preventDefault();
-    axios
-      .post(`http://localhost:5000/api/ticket`, {
-        booking_id: this.state.bookingNumber,
-        show_id: this.state.date,
-        name: this.state.name,
-        category: this.state.cat
+    axios.get('http://localhost:5000/api/products/list').then(res => {
+      this.setState({
+        products : res.data
       })
-      .then(res => {
-        this.setState({
-          count: count
-        });
-      });
+    })
+    
   }
 
   handleChange(event) {
@@ -108,9 +81,8 @@ class Booking extends React.Component {
                 </tr>
               </tbody>
             </table>
-            <div className="d-flex">
-              <div className="button-plus mx-1">+</div>
-              <h3>Ajouter une reservation</h3>
+            <div className="d-flex">            
+              <h3>Reservation</h3>
             </div>
             <form
               className="booking-container"
@@ -221,9 +193,9 @@ class Booking extends React.Component {
             />
           </div>
         </div>
-        <ul>{this.state.ticket.map((place, idx) => {
+        <ul>{this.state.products.map((product, idx) => {
           return (
-            <li>{`${place.name} / ${place.category} / ${place.show_name}`}</li>
+            <li key={idx}>{`${product.product_name}`}</li>
           );
 
         })}</ul>
