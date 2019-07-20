@@ -80,10 +80,6 @@ class Booking extends React.Component {
   }
 
   render() {
-    // console.log(this.state.city);
-    // console.log(this.state.name);
-    // console.log(this.state.cat);
-    // console.log(this.state.date);
     console.log(this.state.bookingNumber);
     console.log(this.state.ticket);
     return (
