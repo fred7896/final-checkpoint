@@ -6,9 +6,6 @@ class Navbar extends React.Component {
       <div className="container-navbar d-flex">
         <div className="container-navbar-title p-5">
           <h1>SOVIET CIRCUS</h1>
-          <p className="kyril-bold">
-            Viens voir Vladimir défier les ours de Sibérie !
-          </p>
         </div>
         <div className="container-navbar-list p-5 kyril-bold">
           <ul>

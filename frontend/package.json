@@ -5,7 +5,11 @@
   "dependencies": {
     "axios": "^0.19.0",
     "react": "^16.8.6",
+    "react-bootstrap-table-next": "^3.1.5",
+    "react-bootstrap-table2-filter": "^1.1.10",
     "react-dom": "^16.8.6",
+    "react-icons": "^3.7.0",
+    "react-modal": "^3.9.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
