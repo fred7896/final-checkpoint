@@ -69,7 +69,7 @@ app.get("/api/shows/:city", (req, res) => {
 //LISTE DES PRODUITS
 app.get("/api/products/list", (req, res) => {
   db.query(
-    `SELECT pl.city, p.product_name, p.categorie, p.price, s.show_date FROM product AS p INNER JOIN circus_show AS s ON p.show_id = s.id INNER JOIN place AS pl ON pl.id = s.place_id`,
+    `SELECT p.id, pl.city, p.product_name, p.categorie, p.price, s.show_date FROM product AS p INNER JOIN circus_show AS s ON p.show_id = s.id INNER JOIN place AS pl ON pl.id = s.place_id`,
     (err, results) => {
       if (err) {
         console.log(err);

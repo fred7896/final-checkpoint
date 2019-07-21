@@ -46,7 +46,9 @@ class Booking extends React.Component {
           filter: textFilter()
         }
       ],
-      showModal: false
+      showModal: false,
+      itemData: 0,
+      quantite: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitCity = this.handleSubmitCity.bind(this);
@@ -65,6 +67,22 @@ class Booking extends React.Component {
         products: res.data
       });
     });
+  }
+
+  addQuantity() {
+    const qte = this.state.quantite;
+    this.setState({
+      quantite : qte +1
+    });
+  }
+
+  removeQuantity() {
+    if(this.state.quantite > 1) {
+      const qte = this.state.quantite;
+      this.setState({
+        quantite : qte -1
+      });
+    }
   }
 
   handleSubmitCity(event) {
@@ -93,7 +111,8 @@ class Booking extends React.Component {
 
   handleOpenModal = id => {
     this.setState({
-      showModal: true
+      showModal: true,
+      itemData: id
     });
   };
 
@@ -116,7 +135,7 @@ class Booking extends React.Component {
     const rowEvents = {
       onClick: (e, row, rowIndex) => {
         this.handleOpenModal(row.id);
-        console.log(e);
+        console.log(row);
       }
     };
     return (
@@ -130,7 +149,7 @@ class Booking extends React.Component {
         >
           <div className="modal-body">
             <div className="row d-flex">
-              <div className="col-10 name-product">Nom du Show</div>
+              <div className="col-10 name-product">Reservation</div>
               <IconContext.Provider
                 value={{
                   color: "#FF9500",
@@ -144,11 +163,29 @@ class Booking extends React.Component {
                 </div>
               </IconContext.Provider>
             </div>
+            <ul className="row d-flex my-3 justify-content-center qte">
+              {products
+                .filter(product => {
+                  return product.id === this.state.itemData;
+                })
+                .map((el, idx) => {
+                  return <li key={idx}>{el.product_name}</li>;
+                })}
+            </ul>
             <div className="row d-flex my-3 justify-content-center qte">
-            <div className="col-6">Quantité</div><div className="col-2"><FaMinus /></div><div className="col-2">1</div><div className="col-2"><FaPlus /></div>
+              <div className="col-6">Quantité</div>
+              <div className="col-2" onClick={this.removeQuantity.bind(this)}>
+                <FaMinus />
+              </div>
+              <div className="col-2">{this.state.quantite}</div>
+              <div className="col-2" onClick={this.addQuantity.bind(this)}>
+                <FaPlus />
+              </div>
             </div>
             <div className="row d-flex my-3 justify-content-center qte">
-            <div className="col-12 icon-center p-2"><FaCartArrowDown /></div>
+              <div className="col-12 icon-center p-2">
+                <FaCartArrowDown />
+              </div>
             </div>
           </div>
         </ReactModal>
