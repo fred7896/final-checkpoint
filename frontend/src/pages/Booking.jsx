@@ -10,7 +10,8 @@ import {
   FaWindowClose,
   FaMinus,
   FaPlus,
-  FaCartArrowDown
+  FaCartArrowDown,
+  FaNetworkWired
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -53,6 +54,7 @@ class Booking extends React.Component {
     this.handleDisplayList = this.handleDisplayList.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   addQuantity() {
@@ -96,6 +98,21 @@ class Booking extends React.Component {
       showModal: false
     });
   };
+
+  addToCart() {
+    const id = this.state.itemData;
+    const qte = this.state.quantite;
+    const name = this.state.name;
+    axios.post("http://localhost:5000/api/cart/ajout", 
+    {
+      id_product : id,
+      quantity : qte,
+      name_customer : name
+    }
+    ).then(res => {
+      console.log(res);
+    });
+  }
 
   render() {
     const products = this.state.products.map(el => {
@@ -158,7 +175,7 @@ class Booking extends React.Component {
               </div>
             </div>
             <div className="row d-flex my-3 justify-content-center qte">
-              <div className="col-12 icon-center p-2">
+              <div className="col-12 icon-center p-2" onClick={this.addToCart}>
                 <FaCartArrowDown />
               </div>
             </div>
@@ -187,22 +204,8 @@ class Booking extends React.Component {
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div className="container-map col-md-6 col">
-            <img
-              src={require("../pricing_map.png")}
-              alt="pricing"
-              className="img-pricing"
-            />
-          </div>
-        </div>
-        <div className="row p-5">
-          <h3>Reservation</h3>
-          <form
-            className="booking-container"
-            onSubmit={this.handleDisplayList}
-          >
-            <div className="input-name">
+            <h3>Reservation</h3>
+            <div className="input-name d-flex justify-content-start">
               <input
                 type="text"
                 name="name"
@@ -214,21 +217,33 @@ class Booking extends React.Component {
                 placeholder="Nom Prenom"
                 required
               />
+              <div className="button-list" onClick={this.handleDisplayList}>Valider</div>
             </div>
-            <input type="submit" value="Valider" />
-          </form>
+            
+          </div>
+          <div className="container-map col-md-6 col">
+            <img
+              src={require("../pricing_map.png")}
+              alt="pricing"
+              className="img-pricing"
+            />
+          </div>
         </div>
-        <div className="row product-list my-3">
-          <BootstrapTable
-            keyField="id"
-            data={products}
-            columns={this.state.columns}
-            hover
-            condensed
-            rowEvents={rowEvents}
-            filter={filterFactory()}
-          />
-        </div>
+        {this.state.name !== "" ? (
+          <div className="row product-list my-3">
+          <div className="col">
+            <BootstrapTable
+              keyField="id"
+              data={products}
+              columns={this.state.columns}
+              hover
+              condensed
+              rowEvents={rowEvents}
+              filter={filterFactory()}
+            />
+          </div>
+          </div>
+        ) : null}
       </React.Fragment>
     );
   }

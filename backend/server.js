@@ -53,6 +53,24 @@ app.get("/api/products/list", (req, res) => {
   );
 });
 
+//INSERTION PANIER
+app.post("/api/cart/ajout", (req, res) => {
+  const formData = req.body;
+  db.query("INSERT INTO `cart_item` SET ?", formData, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erreur lors de l'ajout d'un article");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// //VOIR PANIER
+// app.get("/api/cart", (req, res) => {
+
+// })
+
 app.listen(PORT, () => {
   console.log(`API root available at http://localhost:${PORT}/`);
 });

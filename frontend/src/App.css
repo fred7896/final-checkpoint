@@ -308,6 +308,7 @@ form {
   padding: 12px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 .button:hover {
   background: #520a0a none repeat scroll 0 0;
@@ -317,4 +318,23 @@ form {
   clear: both;
   content: "";
   display: table;
+}
+
+.button-list {
+  font-family: 'KyrillaSansSerif-Bold';
+  background: #520a0a none repeat scroll 0 0;
+  color: #FF9500;
+  display: block;
+  font-size: 16px;
+  margin: 5px 0 15px;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input#name {
+  margin: 5px 0 15px;
+  padding: 8px;
+  font-family: 'KyrillaSansSerif-Bold';
 }
