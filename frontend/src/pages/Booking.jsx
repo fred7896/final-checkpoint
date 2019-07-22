@@ -10,8 +10,7 @@ import {
   FaWindowClose,
   FaMinus,
   FaPlus,
-  FaCartArrowDown,
-  FaTrash
+  FaCartArrowDown
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -51,52 +50,28 @@ class Booking extends React.Component {
       quantite: 1
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmitCity = this.handleSubmitCity.bind(this);
-    this.handleSubmitTicket = this.handleSubmitTicket.bind(this);
+    this.handleDisplayList = this.handleDisplayList.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
-  componentDidMount() {
-    axios.get(`http://localhost:5000/api/cities`).then(res => {
-      this.setState({
-        cities: res.data
-      });
-    });
-    axios.get("http://localhost:5000/api/products/list").then(res => {
-      this.setState({
-        products: res.data
-      });
-    });
   }
 
   addQuantity() {
     const qte = this.state.quantite;
     this.setState({
-      quantite : qte +1
+      quantite: qte + 1
     });
   }
 
   removeQuantity() {
-    if(this.state.quantite > 1) {
+    if (this.state.quantite > 1) {
       const qte = this.state.quantite;
       this.setState({
-        quantite : qte -1
+        quantite: qte - 1
       });
     }
   }
 
-  handleSubmitCity(event) {
-    event.preventDefault();
-    axios
-      .get(`http://localhost:5000/api/shows/${this.state.city}`)
-      .then(res => {
-        this.setState({
-          shows: res.data
-        });
-      });
-  }
-
-  handleSubmitTicket(event) {
+  handleDisplayList(event) {
     event.preventDefault();
     axios.get("http://localhost:5000/api/products/list").then(res => {
       this.setState({
@@ -190,7 +165,7 @@ class Booking extends React.Component {
           </div>
         </ReactModal>
         <div className="d-flex row">
-          <div className="container-price-list col-md-6 col">
+          <div className="container-price-list col-md-6 col p-5">
             <h3>Categorie et prix des places</h3>
             <table className="price-list my-2">
               <tbody>
@@ -221,37 +196,11 @@ class Booking extends React.Component {
             />
           </div>
         </div>
-        {/* <div className="d-flex row">
+        <div className="row p-5">
           <h3>Reservation</h3>
-          <form className="booking-container" onSubmit={this.handleSubmitCity}>
-            <div className="input-city">
-              <label>
-                <select
-                  value={this.state.city}
-                  onChange={evt => {
-                    this.handleChange(evt);
-                  }}
-                  name="city"
-                  id="city"
-                >
-                  <option className="placeholder" value="1" selected>
-                    Ville
-                  </option>
-                  {this.state.cities.map((city, idx) => {
-                    return (
-                      <option key={idx} value={city.id}>
-                        {city.city}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-            </div>
-            <input type="submit" value="Valider" />
-          </form>
           <form
             className="booking-container"
-            onSubmit={this.handleSubmitTicket}
+            onSubmit={this.handleDisplayList}
           >
             <div className="input-name">
               <input
@@ -266,61 +215,9 @@ class Booking extends React.Component {
                 required
               />
             </div>
-
-            <div className="input-cat">
-              <label>
-                <select
-                  className="empty"
-                  value={this.state.cat}
-                  onChange={evt => {
-                    this.handleChange(evt);
-                  }}
-                  name="cat"
-                  id="cat"
-                >
-                  <option className="placeholder" value="" selected>
-                    Categorie
-                  </option>
-                  <option value="A-B-C-D">A - B - C - D</option>
-                  <option value="E-F-G-H">E - F - G - H</option>
-                  <option value="I-J-K-L">I - J - K - L</option>
-                  <option value="Boxes">Boxes</option>
-                </select>
-              </label>
-            </div>
-            <div className="input-date">
-              <label>
-                <select
-                  className="empty"
-                  value={this.state.date}
-                  onChange={evt => {
-                    this.handleChange(evt);
-                  }}
-                  name="date"
-                  id="date"
-                >
-                  <option className="placeholder" value="" selected>
-                    Date
-                  </option>
-                  {this.state.shows.map((show, idx) => {
-                    let showDate = new Date(show.show_date);
-                    const options = {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric"
-                    };
-                    return (
-                      <option key={idx} value={show.id}>
-                        {showDate.toLocaleDateString("fr-FR", options)}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-            </div>
-            <input type="submit" value="Valider ma reservation" />
+            <input type="submit" value="Valider" />
           </form>
-        </div> */}
+        </div>
         <div className="row product-list my-3">
           <BootstrapTable
             keyField="id"

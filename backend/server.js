@@ -36,36 +36,6 @@ app.get("/api/shows/list", (req, res) => {
   );
 });
 
-//LISTE DES VILLES UNIQUEMENT
-app.get("/api/cities", (req, res) => {
-  db.query(
-    "SELECT id, city FROM place WHERE begin_date > NOW()",
-    (err, results) => {
-      if (err) {
-        res.status(500).send("Erreur lors de récupération de l'id");
-      } else {
-        res.json(results);
-      }
-    }
-  );
-});
-
-//LISTE DES SHOWS DANS UNE VILLE DONNEE
-app.get("/api/shows/:city", (req, res) => {
-  const idCity = req.params.city;
-  db.query(
-    "SELECT id, show_name, show_date FROM circus_show WHERE place_id = ?",
-    idCity,
-    (err, results) => {
-      if (err) {
-        res.status(500).send("Erreur lors de récupération de l'id");
-      } else {
-        res.json(results);
-      }
-    }
-  );
-});
-
 //LISTE DES PRODUITS
 app.get("/api/products/list", (req, res) => {
   db.query(
