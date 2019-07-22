@@ -13,6 +13,8 @@ import {
   FaCartArrowDown
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { connect } from "react-redux";
+import { setCartAction } from "../redux/actions/cartActions";
 
 class Booking extends React.Component {
   constructor(props) {
@@ -61,9 +63,8 @@ class Booking extends React.Component {
 
   componentDidMount() {
     axios.get("http://localhost:5000/api/cart").then(res => {
-      this.setState({
-        cart: res.data
-      });
+      const { dispatch } = this.props;
+      dispatch(setCartAction(res.data));
     });
   }
 
@@ -111,9 +112,8 @@ class Booking extends React.Component {
 
   updateCart() {
     axios.get("http://localhost:5000/api/cart").then(res => {
-      this.setState({
-        cart: res.data
-      });
+      const { dispatch } = this.props;
+      dispatch(setCartAction(res.data));
     });
   }
 
@@ -129,6 +129,7 @@ class Booking extends React.Component {
       })
       .then(() => {
         this.updateCart();
+        this.handleCloseModal();
       });
   }
 
@@ -137,9 +138,8 @@ class Booking extends React.Component {
       .delete(`http://localhost:5000/api/cart/suppression/${id}`)
       .then(() => {
         axios.get("http://localhost:5000/api/cart").then(res => {
-          this.setState({
-            cart: res.data
-          });
+          const { dispatch } = this.props;
+          dispatch(setCartAction(res.data));
         });
       });
   }
@@ -157,13 +157,11 @@ class Booking extends React.Component {
     const rowEvents = {
       onClick: (e, row, rowIndex) => {
         this.handleOpenModal(row.id);
-        console.log(row);
       }
     };
     return (
       <React.Fragment>
         <Navbar
-          cart={this.state.cart}
           updateCart={this.updateCart}
           deleteFromCart={this.deleteFromCart}
         />
@@ -283,4 +281,9 @@ class Booking extends React.Component {
     );
   }
 }
-export default Booking;
+
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps)(Booking);

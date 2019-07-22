@@ -1,6 +1,9 @@
 import React from "react";
 import { IconContext } from "react-icons";
 import { FaShoppingBag, FaTrash } from "react-icons/fa";
+import { connect } from "react-redux";
+import cartActions from "../redux/actions/cartActions";
+
 
 class Navbar extends React.Component {
   constructor() {
@@ -10,12 +13,6 @@ class Navbar extends React.Component {
     };
     this.showDropdownMenu = this.showDropdownMenu.bind(this);
     this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const differentCart = this.props.cart !== nextProps.cart;
-    const displayMenu = this.state.displayMenu !== nextState.displayMenu;
-    return differentCart || displayMenu;
   }
 
   showDropdownMenu(event) {
@@ -108,4 +105,8 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps)(Navbar);
