@@ -21,14 +21,12 @@ class Navbar extends React.Component {
     this.setState({ displayMenu: true }, () => {
       document.addEventListener("click", this.hideDropdownMenu);
     });
-    this.props.updateCart.bind(this);
   }
 
   hideDropdownMenu() {
     this.setState({ displayMenu: false }, () => {
       document.removeEventListener("click", this.hideDropdownMenu);
     });
-    this.props.updateCart.bind(this);
   }
 
   render() {
