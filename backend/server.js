@@ -66,10 +66,35 @@ app.post("/api/cart/ajout", (req, res) => {
   });
 });
 
-// //VOIR PANIER
-// app.get("/api/cart", (req, res) => {
+//SUPPRIMER PRODUIT DU PANIER
+app.delete("/api/cart/suppression/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(`DELETE FROM cart_item WHERE id= ?`, id, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erreur lors de suppression d'un article");
+    } else {
+      res.send("Article supprimé du panier");
+    }
+  });
+});
 
-// })
+//VOIR PANIER
+app.get("/api/cart", (req, res) => {
+  db.query(
+    `SELECT c.id, p.product_name, p.price, c.quantity AS NbProduct FROM cart_item AS c INNER JOIN product AS p ON c.id_product = p.id`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res
+          .status(500)
+          .send("Erreur lors de récupération de la liste des produits");
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
 
 app.listen(PORT, () => {
   console.log(`API root available at http://localhost:${PORT}/`);

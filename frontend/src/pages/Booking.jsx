@@ -10,8 +10,7 @@ import {
   FaWindowClose,
   FaMinus,
   FaPlus,
-  FaCartArrowDown,
-  FaNetworkWired
+  FaCartArrowDown
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -48,13 +47,23 @@ class Booking extends React.Component {
       ],
       showModal: false,
       itemData: 0,
-      quantite: 1
+      quantite: 1,
+      cart : [],
+      displayCart : false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDisplayList = this.handleDisplayList.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.addToCart = this.addToCart.bind(this);
+  }
+
+    componentDidMount() {
+    axios.get("http://localhost:5000/api/cart").then(res => {
+      this.setState({
+        cart: res.data
+      });
+    });
   }
 
   addQuantity() {
@@ -103,15 +112,20 @@ class Booking extends React.Component {
     const id = this.state.itemData;
     const qte = this.state.quantite;
     const name = this.state.name;
-    axios.post("http://localhost:5000/api/cart/ajout", 
-    {
-      id_product : id,
-      quantity : qte,
-      name_customer : name
-    }
-    ).then(res => {
-      console.log(res);
-    });
+    axios
+      .post("http://localhost:5000/api/cart/ajout", {
+        id_product: id,
+        quantity: qte,
+        name_customer: name
+      })
+      .then(() => {
+        axios.get("http://localhost:5000/api/cart").then(res => {
+          this.setState({
+            cart: res.data
+            
+          });
+        });
+      });
   }
 
   render() {
@@ -132,7 +146,7 @@ class Booking extends React.Component {
     };
     return (
       <React.Fragment>
-        <Navbar />
+        <Navbar cart={this.state.cart} />
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Cart options Modal"
@@ -217,9 +231,10 @@ class Booking extends React.Component {
                 placeholder="Nom Prenom"
                 required
               />
-              <div className="button-list" onClick={this.handleDisplayList}>Valider</div>
+              <div className="button-list" onClick={this.handleDisplayList}>
+                Valider
+              </div>
             </div>
-            
           </div>
           <div className="container-map col-md-6 col">
             <img
@@ -231,17 +246,17 @@ class Booking extends React.Component {
         </div>
         {this.state.name !== "" ? (
           <div className="row product-list my-3">
-          <div className="col">
-            <BootstrapTable
-              keyField="id"
-              data={products}
-              columns={this.state.columns}
-              hover
-              condensed
-              rowEvents={rowEvents}
-              filter={filterFactory()}
-            />
-          </div>
+            <div className="col">
+              <BootstrapTable
+                keyField="id"
+                data={products}
+                columns={this.state.columns}
+                hover
+                condensed
+                rowEvents={rowEvents}
+                filter={filterFactory()}
+              />
+            </div>
           </div>
         ) : null}
       </React.Fragment>
