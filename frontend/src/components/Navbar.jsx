@@ -1,35 +1,41 @@
 import React from "react";
 import { IconContext } from "react-icons";
 import { FaShoppingBag, FaTrash } from "react-icons/fa";
-import axios from "axios";
 
 class Navbar extends React.Component {
   constructor() {
     super();
     this.state = {
-      displayMenu: false,
-      cart: []
+      displayMenu: false
     };
     this.showDropdownMenu = this.showDropdownMenu.bind(this);
     this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const differentCart = this.props.cart !== nextProps.cart;
+    const displayMenu = this.state.displayMenu !== nextState.displayMenu;
+    return differentCart || displayMenu;
+  }
 
   showDropdownMenu(event) {
     event.preventDefault();
     this.setState({ displayMenu: true }, () => {
       document.addEventListener("click", this.hideDropdownMenu);
     });
+    this.props.updateCart.bind(this);
   }
 
   hideDropdownMenu() {
     this.setState({ displayMenu: false }, () => {
       document.removeEventListener("click", this.hideDropdownMenu);
     });
+    this.props.updateCart.bind(this);
   }
 
   render() {
     console.log(this.props.cart);
+    console.log(this.state.displayMenu);
     return (
       <React.Fragment>
         <div className="container-navbar d-flex row">
@@ -72,20 +78,26 @@ class Navbar extends React.Component {
               </div>
 
               <ul className="shopping-cart-items">
-              {this.props.cart.map((article, idx) => {
-                return (
-                  <li key={idx} className="clearfix">
-                  <div className="trash">
-                    <FaTrash />
-                  </div>
-                  <div className="item-name">
-                    {article.product_name}
-                  </div>
-                  <div className="item-price">{article.price}€</div>
-                  <div className="item-quantity">Quantité: {article.quantity}</div>
-                </li>
-                )
-              })}
+                {this.props.cart.map((article, idx) => {
+                  return (
+                    <li key={idx} className="clearfix">
+                      <div
+                        className="trash"
+                        onClick={this.props.deleteFromCart.bind(
+                          this,
+                          article.id
+                        )}
+                      >
+                        <FaTrash />
+                      </div>
+                      <div className="item-name">{article.product_name}</div>
+                      <div className="item-price">{article.price}€</div>
+                      <div className="item-quantity">
+                        Quantité: {article.quantity}
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
               <div className="button">Checkout</div>
             </div>

@@ -48,17 +48,18 @@ class Booking extends React.Component {
       showModal: false,
       itemData: 0,
       quantite: 1,
-      cart : [],
-      displayCart : false
+      cart: [],
+      displayCart: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDisplayList = this.handleDisplayList.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.updateCart = this.updateCart.bind(this);
   }
 
-    componentDidMount() {
+  componentDidMount() {
     axios.get("http://localhost:5000/api/cart").then(res => {
       this.setState({
         cart: res.data
@@ -108,6 +109,14 @@ class Booking extends React.Component {
     });
   };
 
+  updateCart() {
+    axios.get("http://localhost:5000/api/cart").then(res => {
+      this.setState({
+        cart: res.data
+      });
+    });
+  }
+
   addToCart() {
     const id = this.state.itemData;
     const qte = this.state.quantite;
@@ -119,10 +128,17 @@ class Booking extends React.Component {
         name_customer: name
       })
       .then(() => {
+        this.updateCart();
+      });
+  }
+
+  deleteFromCart(id) {
+    axios
+      .delete(`http://localhost:5000/api/cart/suppression/${id}`)
+      .then(() => {
         axios.get("http://localhost:5000/api/cart").then(res => {
           this.setState({
             cart: res.data
-            
           });
         });
       });
@@ -146,7 +162,11 @@ class Booking extends React.Component {
     };
     return (
       <React.Fragment>
-        <Navbar cart={this.state.cart} />
+        <Navbar
+          cart={this.state.cart}
+          updateCart={this.updateCart}
+          deleteFromCart={this.deleteFromCart}
+        />
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Cart options Modal"
