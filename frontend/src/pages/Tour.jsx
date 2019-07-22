@@ -21,8 +21,9 @@ class Tour extends React.Component {
     return (
       <div className="container-fluid">
         <Navbar />
-        <h3 className="px-5">Vladimir Vs Wild</h3>
-        <table className="container-shows-list mx-5 p-3">
+        <h3 className="px-5 container-tableau">Vladimir Vs Wild</h3>
+        <div className="container-tableau px-5 row">
+        <table className="container-shows-list mx-5 p-5 col-7">
           <tbody>
             {this.state.tour.map((el, idx) => {
               let beginDate = new Date(el.begin_date);
@@ -39,12 +40,19 @@ class Tour extends React.Component {
                     "fr-FR",
                     options
                   )} `}</td>
-                  <td>Reserver</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        <div className="container-img col-5">
+            <img
+              src={require("../bear.png")}
+              alt="famille"
+              className="img-family"
+            />
+          </div>
+        </div>
       </div>
     );
   }

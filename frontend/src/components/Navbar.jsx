@@ -3,6 +3,7 @@ import { IconContext } from "react-icons";
 import { FaShoppingBag, FaTrash } from "react-icons/fa";
 import { connect } from "react-redux";
 import cartActions from "../redux/actions/cartActions";
+import { Link } from 'react-router-dom';
 
 
 class Navbar extends React.Component {
@@ -40,9 +41,9 @@ class Navbar extends React.Component {
             <h1>SOVIET CIRCUS</h1>
           </div>
           <ul className="navbar-right d-flex kyril-bold p-5 col-7 justify-content-end">
-            <li className="p-3">Le cirque</li>
-            <li className="p-3">La Tournée</li>
-            <li className="p-3">Reserver</li>
+            <Link to="/"><li className="p-3">Le cirque</li></Link>
+            <Link to="/tournee"><li className="p-3">La Tournée</li></Link>
+            <Link to="/reserver"><li className="p-3">Reserver</li></Link>
             <IconContext.Provider
               value={{
                 color: "#520a0a",

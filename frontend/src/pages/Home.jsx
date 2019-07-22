@@ -17,7 +17,7 @@ class Home extends React.Component {
           </div>
           <div className="container-history-text p-5 d-flex">
             <div>
-              <h3>Notre Histoire</h3>
+              <h3 className="title-home">Notre Histoire</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent vitae sodales ex, at condimentum sem. Fusce et molestie
@@ -34,7 +34,7 @@ class Home extends React.Component {
         <div className="p-3 d-flex">
           <div className="container-history-text p-5 d-flex">
             <div>
-              <h3>Nos installations</h3>
+              <h3 className="title-home">Nos installations</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent vitae sodales ex, at condimentum sem. Fusce et molestie
